@@ -23,7 +23,7 @@ def Menubar_showbrands(request:HttpRequest):
         'brands' : brands
     }
     
-   
+
 
     return render(request,'showBrands/showbrands.html',context)
 

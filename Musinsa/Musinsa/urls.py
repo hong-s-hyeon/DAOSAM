@@ -26,7 +26,7 @@ urlpatterns = [
     path('brands/',include('Brands.urls')),
     path('menubar/',include('Menubar.urls')),
     path('community/',include('Community.urls')),
-    path('summernote/',include('django_summernote.urls')),
+    # path('summernote/',include('django_summernote.urls')),
     path('cs/',include('CS.urls')),
     path('review/',include('Review.urls')),
 ]
