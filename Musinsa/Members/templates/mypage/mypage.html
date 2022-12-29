@@ -1,0 +1,493 @@
+{%extends 'layout/main_layout.html'%}
+
+{% block style %}
+<style>
+    .header > .navigation-bar > .navbar > .container-fluid {
+        display: block;
+    }
+
+    .d-flex,
+    .navbar-brand {
+        float: left;
+    }
+
+    .navbar-collapse,
+    .navbar-toggler {
+        float: right;
+    }
+    .btn.btn-outline-success {
+        width: 90px;
+    }
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .dropdown-item {
+        text-align: center;
+        border: 0.01rem solid black;
+    }
+    .dropdown-menu.show {
+        padding-top: 0;
+        padding-bottom: 0;
+        left: -52px;
+    }
+    .basket_cnt {
+        display: inline-block;
+        min-width: 24px;
+        margin: -1px 4px 0 0;
+        padding: 4px 5px 5px;
+        border-radius: 100%;
+        background-color: #0078ff;
+        font-size: 11px;
+        line-height: normal;
+        color: #fff;
+        text-align: center;
+        vertical-align: top;
+    }
+    .nav-link.active {
+        position: relative;
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 0 9px 0 8px;
+        align-items: center;
+        display: flex;
+    }
+    .accordion-header > .accordion-button {
+        box-shadow: none;
+    }
+    footer > .d-flex {
+        float: none;
+    }
+    section > .container.text-center.text-md-start.mt-5 {
+        max-width: 1560px;
+    }
+    footer > .d-flex.justify-content-center {
+        justify-content: center!important;
+    }
+    .side_user_table_list {
+        border: 1px solid #ddd;
+    }
+    .side_user_table_list > h3 {
+        margin: 0;
+        padding: 20px 25px;
+    }
+    .inner > a {
+        text-decoration: none;
+        color: black;
+        padding: 0 30px;
+    }
+    .lin_height0 {
+        line-height: 0;
+    }
+    .arrow_button {
+        width: 52px;
+        height: 50px;
+    }
+    .text_color_white {
+        color: white!important;
+    }
+    .nav-item.dropdown > .dropdown-menu {
+        margin-top: 6px;
+    }
+
+    #wrapper {
+        height: auto;
+        min-height: 100%;
+        padding-bottom: 59%;
+    }
+    footer {
+        height: 0;
+        position: relative;
+        transform: translateY(-100%);
+    }
+
+    body * {
+        /* disabling font boosting */
+        max-height: 1000000em;
+        -moz-text-size-adjust: none;
+
+    }
+</style>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+            crossorigin="anonymous">
+
+        <link
+            rel="stylesheet"
+            href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+            crossorigin="anonymous">
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+        <style>
+            .header > .navigation-bar > .navbar > .container-fluid {
+                display: block;
+            }
+
+            .d-flex,
+            .navbar-brand {
+                float: left;
+            }
+
+            .navbar-collapse,
+            .navbar-toggler {
+                float: right;
+            }
+            .btn.btn-outline-success {
+                width: 90px;
+            }
+            .dropdown-toggle::after {
+                display: none;
+            }
+            .dropdown-item {
+                text-align: center;
+                border: 0.01rem solid black;
+            }
+            .dropdown-menu.show {
+                padding-top: 0;
+                padding-bottom: 0;
+                left: -52px;
+            }
+            .basket_cnt {
+                display: inline-block;
+                min-width: 24px;
+                margin: -1px 4px 0 0;
+                padding: 4px 5px 5px;
+                border-radius: 100%;
+                background-color: #0078ff;
+                font-size: 11px;
+                line-height: normal;
+                color: #fff;
+                text-align: center;
+                vertical-align: top;
+            }
+            .nav-link.active {
+                position: relative;
+                display: flex;
+                position: relative;
+                box-sizing: border-box;
+                height: 100%;
+                padding: 0 9px 0 8px;
+                align-items: center;
+                display: flex;
+            }
+            .accordion-header > .accordion-button {
+                box-shadow: none;
+            }
+            footer > .d-flex {
+                float: none;
+            }
+            section > .container.text-center.text-md-start.mt-5 {
+                max-width: 1560px;
+            }
+            footer > .d-flex.justify-content-center {
+                justify-content: center!important;
+            }
+            .side_user_table_list {
+                border: 1px solid #ddd;
+            }
+            .side_user_table_list > h3 {
+                margin: 0;
+                padding: 20px 25px;
+            }
+            .inner > a {
+                text-decoration: none;
+                color: black;
+                padding: 0 30px;
+            }
+            .lin_height0 {
+                line-height: 0;
+            }
+            .arrow_button {
+                width: 52px;
+                height: 50px;
+            }
+            .text_color_white {
+                color: white!important;
+            }
+            .nav-item.dropdown > .dropdown-menu {
+                margin-top: 6px;
+            }
+
+            #wrapper {
+                height: auto;
+                min-height: 100%;
+                padding-bottom: 59%;
+            }
+            footer {
+                height: 0;
+                position: relative;
+                transform: translateY(-100%);
+            }
+
+            body * {
+                /* disabling font boosting */
+                max-height: 1000000em;
+                -moz-text-size-adjust: none;
+
+            }
+        </style>
+
+        
+
+        <link
+            rel="stylesheet"
+            href="https://static.msscdn.net/ui/build/pc/css/common.css">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/magazine_common.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/store_common.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/layout.min.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/ui/musinsa/resources/common/css/icon.min.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/guide.min.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/sub.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/style.min.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/media_query.css?202206071644">
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/new.css?202206071644">
+
+        <script
+            type="text/javascript"
+            src="https://static.msscdn.net/skin/musinsa/js/mini_cart.js?202206071644"></script>
+        <script>
+            function setCookie(key, value, expire) {
+                var cookieDate = new Date();
+                cookieDate.setDate(cookieDate.getDate() + parseInt(expire));
+                document.cookie = key + "=" + escape(value) + "; expires=" + cookieDate.toGMTString() +
+                        "; path=/; domain=.musinsa.com";
+            }
+        </script>
+
+        <script
+            type="text/javascript"
+            src="https://static.msscdn.net/skin/musinsa/js/jslib.js?202206071644"></script>
+
+        <script
+            type="text/javascript"
+            src="https://static.msscdn.net/skin/musinsa/js/suggestions.js?202206071644"></script>
+        <script
+            type="text/javascript"
+            src="https://static.msscdn.net/skin/musinsa/js/clipboard.min.js?202206071644"></script>
+
+        <!--jqModal-->
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/skin/musinsa/css/jqModal.css?202206071644">
+
+        <!--//jqModal-->
+
+        <!-- 공통 레이아웃 (pc) 관련 script, css -->
+        <script
+            type="text/javascript"
+            src="https://static.msscdn.net/static/common/1.2.0/chunk-vendors.js"></script>
+        <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://static.msscdn.net/static/common/1.2.0/pc.css">
+
+
+        <link
+            type="text/css"
+            rel="stylesheet"
+            href="https://static.msscdn.net/skin/musinsa/css/mypage.min.css?202206071644">
+
+        <script
+            src="https://static.msscdn.net/static/member/js/constant.js?202206071644"
+            type="text/javascript"></script>
+
+        <script
+            src="https://static.msscdn.net/static/member/js/string.js?202206071644"
+            type="text/javascript"></script>
+
+        <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+        <script>
+            (function () {
+                Kakao.init("a432f563a20ec43eb463878d3c627079");
+            })();
+        </script>
+
+        <script
+            src="https://static.msscdn.net/static/member/js/crypto-js.min.js?202206071644"></script>
+        <script
+            src="https://static.msscdn.net/static/member/js/security.js?202206071644"></script>
+        <script
+            type="text/javascript"
+            src="https://appleid.cdn-apple.com/appleauth/static/jsapi/appleid/1/en_US/appleid.auth.js"></script>
+{% endblock %}
+
+{% block script %}
+
+{% endblock %}
+
+{% block title %}
+    mypage
+{% endblock %}
+
+{% block content %}
+<section class="mypage-cont" style="width: 79%; float: left; margin-left: 50px;">
+    <input type="hidden" id="defaultImage" name="defaultImage">
+    <h1 class="hidden">회원 정보 변경</h1>
+    <!-- 기본 회원정보 -->
+    <section class="n-section-block">
+        <header class="n-section-title first info_views-area">
+            <h1 class="tit">기본 회원정보
+            </h1>
+        </header>
+
+        <table class="n-table table-row my-info-modify">
+            <colgroup>
+                <col style="width:190px">
+                <col>
+                <col style="width:50%">
+            </colgroup>
+            <tbody>
+                <tr>
+                    <th scope="row">회원번호</th>
+                    <td colspan="2">
+                        <strong>{{ user.u_no }}</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">아이디</th>
+                    <td colspan="2">
+                        <strong>{{ user.u_id }}</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">이름(실명)</th>
+                    <td>
+                        <strong>{{ user.u_name }}</strong>
+                    </td>
+                </tr>
+                <tr id="nickName-area">
+                    <th scope="row">닉네임</th>
+                    <td>
+                        <strong>{{ user.u_nickname }}</strong>
+                    </td>
+
+                </tr>
+                <tr id="email-area">
+                    <th scope="row">이메일</th>
+                    <td>
+                        <strong id="currentEmail" value="kuk****@*****.com">{{ user.u_email }}</strong>
+
+                    </td>
+                </tr>
+                <tr id="mobile-area">
+                    <th scope="row">휴대전화</th>
+                    <td>
+                        <strong>{{ user.u_hp }}</strong>
+                    </td>
+                </tr>
+                <tr id="birth-area">
+                    <th scope="row">생년월일</th>
+                    <td>
+                        <strong>{{ user.u_birth }}</strong>
+                    </td>
+                </tr>
+                <tr id="joindate-area">
+                    <th scope="row">가입일</th>
+                    <td>
+                        <strong>{{ user.u_joindate }}</strong>
+                    </td>
+                </tr>
+                <tr id="refundnum-area">
+                    <th scope="row">환불 계좌 번호</th>
+                    <td>
+                        <strong>{{ user.u_refundnum }}</strong>
+                    </td>
+                </tr>
+                <tr id="point-area">
+                    <th scope="row">포인트</th>
+                    <td>
+                        <strong>{{ user.u_point }}p</strong>
+                    </td>
+                </tr>
+                <tr id="addr-area">
+                    <th scope="row">배송지</th>
+                    <td>
+                        <strong>{{ deli.d_addr }}</strong>
+                    </td>
+                </tr>
+                <tr id="recipiant-area">
+                    <th scope="row">수령인</th>
+                    <td>
+                        <strong>{{ deli.d_recipient }}</strong>
+                    </td>
+                </tr>
+                <tr id="addr-area">
+                    <th scope="row">배송지명</th>
+                    <td>
+                        <strong>{{ deli.d_name }}</strong>
+                    </td>
+                </tr>
+                <tr id="hp-area">
+                    <th scope="row">휴대전화</th>
+                    <td>
+                        <strong>{{ deli.d_phone }}</strong>
+                    </td>
+                </tr>
+                <tr id="cardname-area">
+                    <th scope="row">카드명</th>
+                    <td>
+                        <strong>{{ payment.p_name }}</strong>
+                    </td>
+                </tr>
+                <tr id="cardnum-area">
+                    <th scope="row">카드번호</th>
+                    <td>
+                        <strong>{{ payment.p_cardnum }}</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ul class="n-info-txt"></ul>
+    </section>
+    <!-- //기본 회원정보 -->
+    <form action="/members/pwpage">
+    <input type="hidden" name="kind" value="0">
+        <p class="my-info-withdrawal">정보 수정를 원하시면 회원정보 수정 버튼을 눌러주세요
+            <button type="submit">
+                <p class="n-btn btn-sm btn-default">회원정보 수정</p>
+            </button>
+        </p>
+    </form>
+    <form action="/members/pwpage">
+        <input type="hidden" name="kind" value="1">
+        <p class="my-info-withdrawal">탈퇴를 원하시면 회원탈퇴 버튼을 눌러주세요
+            <button type="submit">
+                <p class="n-btn btn-sm btn-default">탈퇴하기</p>
+            </button>
+    </p>
+    </form>
+</section>
+{% endblock %}

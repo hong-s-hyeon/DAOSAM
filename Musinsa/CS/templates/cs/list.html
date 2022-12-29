@@ -1,0 +1,183 @@
+{%extends 'layout/main_layout.html'%}
+
+{% block style %}
+<style>
+    .header > .navigation-bar > .navbar > .container-fluid {
+        display: block;
+    }
+
+    .d-flex,
+    .navbar-brand {
+        float: left;
+    }
+
+    .navbar-collapse,
+    .navbar-toggler {
+        float: right;
+    }
+    .btn.btn-outline-success {
+        width: 90px;
+    }
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .dropdown-item {
+        text-align: center;
+        border: 0.01rem solid black;
+    }
+    .dropdown-menu.show {
+        padding-top: 0;
+        padding-bottom: 0;
+        left: -52px;
+    }
+    .basket_cnt {
+        display: inline-block;
+        min-width: 24px;
+        margin: -1px 4px 0 0;
+        padding: 4px 5px 5px;
+        border-radius: 100%;
+        background-color: #0078ff;
+        font-size: 11px;
+        line-height: normal;
+        color: #fff;
+        text-align: center;
+        vertical-align: top;
+    }
+    .nav-link.active {
+        position: relative;
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 0 9px 0 8px;
+        align-items: center;
+        display: flex;
+    }
+    .accordion-header > .accordion-button {
+        box-shadow: none;
+    }
+    footer > .d-flex {
+        float: none;
+    }
+    section > .container.text-center.text-md-start.mt-5 {
+        max-width: 1560px;
+    }
+    footer > .d-flex.justify-content-center {
+        justify-content: center!important;
+    }
+    .side_user_table_list {
+        border: 1px solid #ddd;
+    }
+    .side_user_table_list > h3 {
+        margin: 0;
+        padding: 20px 25px;
+    }
+    .inner > a {
+        text-decoration: none;
+        color: black;
+        padding: 0 30px;
+    }
+    .lin_height0 {
+        line-height: 0;
+    }
+    .arrow_button {
+        width: 52px;
+        height: 50px;
+    }
+    .text_color_white{
+        color: white!important;
+    }
+    .nav-item.dropdown > .dropdown-menu{
+        margin-top: 6px;
+    }
+    .cs>tbody>tr{
+        border: 1px solid black;
+    }
+    .cs>tbody>tr>th{
+        text-align: center;
+    }
+    .cs>tbody>tr>td{
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="breadCrumb-wrapper sub" style="font-size: 24px; padding-left: 30px;">
+    CS고객센터
+</div>
+<div style="width: 90%; margin: 0px auto;">
+    <table class="cs" style="width: -webkit-fill-available; margin: 0px auto;">
+        <tr>
+            <th>번호</th>
+            <th>카테고리</th>
+            <th>브랜드명</th>
+            <th style="width: 50%;">제목</th>
+            <th>닉네임</th>
+            <th>등록일</th>
+        </tr>
+        {% for cs in list %}
+        {% if request.session.login == cs.u_no.u_no or request.session.brandlogin == cs.b_no.b_no%}
+            <tr>
+                <td>{{ cs.qna_no }}</td>
+                <td>{{ cs.qcate_no.qcate_name }}</td>
+                <td>{{ cs.b_no.b_korname }} / {{ cs.b_no.b_engname }}</td>
+                <td>
+                    {% comment %}
+                    {% autoescape off %}{{ cs.depth|reStr }}{% endautoescape %}
+                    {% endcomment %}
+                    <a href="/cs/read/?qna_no={{ cs.qna_no }}">{{ cs.qna_title }}</a>
+                </td>
+                <td>{{ cs.u_no.u_nickname }}</td>
+                <td>{{ cs.qna_date|date:'Y-m-d' }}</td>
+            </tr>
+        {% elif request.session.login == '' or request.session.login == None %}
+            <tr>
+                <td colspan="6" style="text-align: center;">
+                    글목록이 존재하지 않습니다.
+                </td>
+            </tr>
+        {% endif %}
+        {% empty %}
+            <tr>
+                <td colspan="6" style="text-align: center;">
+                    글목록이 존재하지 않습니다.
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div style="text-align: right; margin-top: 10px;">
+        {% if request.session.login != None %}
+            <div class="listBtnBox">
+                <a href="/cs/write/0" style="background-color: black; color: white;" class="plain-btn btn btn-black">글쓰기</a>
+            </div>
+        {% endif %}
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+        {% if list.has_previous %}
+            <a href="/cs/?page=1">[<<]</a>
+            <a href="/cs/?page={{ list.previous_page_number }}">[<]</a>
+        {% else %}
+            [<<][<]
+        {% endif %}
+        {% for page_number in list.paginator.page_range %}
+            {% if start_page <= page_number and end_page >= page_number %}
+                {% if page_number == list.number %}
+                    <a href="#" style="font-weight: bolder; color: chocolate;">[{{page_number}}]</a>
+                {% else %}
+                    <a href="/cs/?page={{ page_number }}">[{{page_number}}]</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if list.has_next %}
+            <a href="/cs/?page={{ list.next_page_number }}">[>]</a>
+            <a href="/cs/?page={{last_page}}">[>>]</a>
+        {% else %}
+            [>][>>]
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

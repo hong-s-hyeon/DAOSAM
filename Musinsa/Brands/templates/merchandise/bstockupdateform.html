@@ -1,0 +1,88 @@
+{% extends 'layout/brand_layout.html' %}
+{%block style%}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{%endblock%}
+
+{% block content %}
+{% load user_template %}
+<div style="display: flex; justify-content: center;">
+    <form action="/brands/checkbstockupdateform/" method="post" name="stockfom">
+        {% csrf_token %}
+        <input type="hidden" name="no" value="{{item.it_no}}">
+        <table>
+            <caption style="font-size: 1.5em; font-weight: bolder;">상품재고관리<br><br></caption>
+            <tr>
+                <th>상품명</th>
+                <!-- <th>색상</th>
+                <th>사이즈</th>
+                <th>옵션</th> -->
+                <th colspan="{{sizelength|mul:collength}}">{{item.it_name}}</th>
+            </tr>
+
+            <tr>
+                <th>색상</th>
+                {% for c in color %}
+                <td colspan="{{ sizelength }}">{{c.col_name}}</td>
+                {%endfor%}
+            </tr>
+            <tr>
+                <th>사이즈</th>
+                {%if item.bigcate_no.bigcate_no != 4 and item.bigcate_no.bigcate_no != 5 %}
+                    {% for i in collength|range %}
+                        {% for s in size %}
+                            <td>{{s.s_name}}</td>
+                        {%endfor%}
+                    {%endfor%}
+                {%else%}
+                    {% for i in collength|range %}
+                        {% for s in size %}
+                            <td>{{s.ss_name}}</td>
+                        {%endfor%}
+                    {%endfor%}
+                {%endif%}
+            </tr>
+            <tr>
+                <th>재고</th>
+                {% for i in collength|mul:sizelength|range %}
+                <td id="{{i|sum:1}}stock"><input type="text" name="stock" size="1" ></td>
+                {%endfor%}
+            </tr>
+            <!-- <tr>
+                <th>판매량</th>
+                {% for i in collength|mul:sizelength|range %}
+                <td id="{{i|sum:1}}sellcnt"><input type="text" name="sellcnt" value="0" size="1" readonly></td>
+                {%endfor%}
+            </tr>
+            <tr>
+                <th>상태</th>
+                {% for i in collength|mul:sizelength|range %}
+                <td id="{{i|sum:1}}status"><input type="text" name="status" value="없음" size="1" readonly></td>
+                {%endfor%}
+            </tr> -->
+            <tr>
+                <td colspan="{{collength|mul:sizelength|sum:1}}" style="text-align: right;">
+                    <button type="button" name="stockchange" onclick="document.stockfom.submit();">등록</button>
+                    <!-- <button type="button" name="stockupdate" onclick="location.href='/brands/bcheckstockregisterform/'">수정</button>
+                    <button type="button" name="stockupdate" onclick="location.href='/brands/bcheckstockregisterform/?m=3'">확인</button> -->
+                </td>
+            </tr>
+
+        </table>
+    </form>
+</div>
+
+{% for img in itimg %}
+{{img.ii_img}}
+<img src="{{img.ii_img.url}}" alt="b"><br>
+{%endfor%}
+
+<script type="text/javascript">
+    var stockth = document.querySelectorAll('input')
+    console.log(stockth)
+    
+</script>
+{% endblock %}

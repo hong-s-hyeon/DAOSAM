@@ -1,0 +1,173 @@
+{%extends 'layout/main_layout.html'%}
+
+{% block style %}
+<style>
+    .header > .navigation-bar > .navbar > .container-fluid {
+        display: block;
+    }
+
+    .d-flex,
+    .navbar-brand {
+        float: left;
+    }
+
+    .navbar-collapse,
+    .navbar-toggler {
+        float: right;
+    }
+    .btn.btn-outline-success {
+        width: 90px;
+    }
+    .dropdown-toggle::after {
+        display: none;
+    }
+    .dropdown-item {
+        text-align: center;
+        border: 0.01rem solid black;
+    }
+    .dropdown-menu.show {
+        padding-top: 0;
+        padding-bottom: 0;
+        left: -52px;
+    }
+    .basket_cnt {
+        display: inline-block;
+        min-width: 24px;
+        margin: -1px 4px 0 0;
+        padding: 4px 5px 5px;
+        border-radius: 100%;
+        background-color: #0078ff;
+        font-size: 11px;
+        line-height: normal;
+        color: #fff;
+        text-align: center;
+        vertical-align: top;
+    }
+    .nav-link.active {
+        position: relative;
+        display: flex;
+        position: relative;
+        box-sizing: border-box;
+        height: 100%;
+        padding: 0 9px 0 8px;
+        align-items: center;
+        display: flex;
+    }
+    .accordion-header > .accordion-button {
+        box-shadow: none;
+    }
+    footer > .d-flex {
+        float: none;
+    }
+    section > .container.text-center.text-md-start.mt-5 {
+        max-width: 1560px;
+    }
+    footer > .d-flex.justify-content-center {
+        justify-content: center!important;
+    }
+    .side_user_table_list {
+        border: 1px solid #ddd;
+    }
+    .side_user_table_list > h3 {
+        margin: 0;
+        padding: 20px 25px;
+    }
+    .inner > a {
+        text-decoration: none;
+        color: black;
+        padding: 0 30px;
+    }
+    .lin_height0 {
+        line-height: 0;
+    }
+    .arrow_button {
+        width: 52px;
+        height: 50px;
+    }
+    .text_color_white{
+        color: white!important;
+    }
+    .nav-item.dropdown > .dropdown-menu{
+        margin-top: 6px;
+    }
+    .board>tbody>tr{
+        border: 1px solid black;
+    }
+    .board>tbody>tr>th{
+        text-align: center;
+    }
+    .board>tbody>tr>td{
+        text-align: center;
+    }
+</style>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div class="breadCrumb-wrapper sub" style="font-size: 24px; padding-left: 30px;">
+    Community
+</div>
+<div style="width: 90%; margin: 0px auto;">
+    <table class="board" style="width: -webkit-fill-available; margin: 0px auto;">
+        <tr>
+            <th>번호</th>
+            <th style="width: 50%;">제목</th>
+            <th>닉네임</th>
+            <th>조회수</th>
+            <th>등록일</th>
+        </tr>
+        {% for b in list %}
+            <tr>
+                <td>{{ b.bo_no }}</td>
+                <td>
+                    {% comment %}
+                    {% autoescape off %}{{ b.depth|reStr }}{% endautoescape %}
+                    {% endcomment %}
+                    <a href="/community/read/?bo_no={{ b.bo_no }}">{{ b.bo_title }}</a>
+                </td>
+                <td>{{ b.u_no.u_nickname }}</td>
+                <td>{{ b.bo_hit }}</td>
+                <td>{{ b.bo_date|date:'Y-m-d h:m' }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center;">
+                    글목록이 존재하지 않습니다.
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div style="text-align: right; margin-top: 10px;">
+        {% if request.session.login != None %}
+            <div class="listBtnBox">
+                <a href="/community/write/0" style="background-color: black; color: white;" class="plain-btn btn btn-black">글쓰기</a>
+            </div>
+        {% endif %}
+    </div>
+    <div style="text-align: center; margin-top: 10px;">
+        {% if list.has_previous %}
+            <a href="/community/?page=1">[<<]</a>
+            <a href="/community/?page={{ list.previous_page_number }}">[<]</a>
+        {% else %}
+            [<<][<]
+        {% endif %}
+        {% for page_number in list.paginator.page_range %}
+            {% if start_page <= page_number and end_page >= page_number %}
+                {% if page_number == list.number %}
+                    <a href="#" style="font-weight: bolder; color: chocolate;">[{{page_number}}]</a>
+                {% else %}
+                    <a href="/community/?page={{ page_number }}">[{{page_number}}]</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if list.has_next %}
+            <a href="/community/?page={{ list.next_page_number }}">[>]</a>
+            <a href="/community/?page={{last_page}}">[>>]</a>
+        {% else %}
+            [>][>>]
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

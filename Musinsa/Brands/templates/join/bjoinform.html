@@ -1,0 +1,173 @@
+{% extends 'layout/brand_layout.html' %}
+
+{% block script %}
+<script type="text/javascript">
+    function chf(){
+        const brand = document.brandsjoin;
+        if(brand.bc_no.value==''){
+            alert('브랜드의 분류를 등록해주세요')
+            brands.bc_no.focus();
+            return
+        }
+        else if(brand.b_url.value==''){
+            alert('홈페이지 주소를 입력해주세요')
+            brands.b_url.focus();
+            return 
+        }
+        else if(brand.b_addr.value==''){
+            alert('주소를 입력해주세요')
+            brands.b_addr.focus();
+            return 
+        }
+        else if(brand.b_managername.value==''){
+            alert('관리자 성함를 입력해주세요')
+            brands.b_managername.focus();
+            return 
+        }
+        else if(brand.b_korname.value==''){
+            alert('한글 브랜드명을 입력해주세요')
+            brands.b_korname.focus();
+            return 
+        }
+        else if(brand.b_engname.value==''){
+            alert('영문 브랜드명을 입력해주세요')
+            brands.b_engname.focus();
+            return 
+        }
+        else if(brand.b_info.value==''){
+            alert('브랜드 소개글을 입력해주세요')
+            brands.b_info.focus();
+            return
+        }
+        else if(brand.b_img.value==''){
+            alert('이미지를 등록해주세요')
+            brands.b_img.focus();
+            return
+        }
+        else if(brand.b_id.value==''){
+            alert('아이디를 입력해주세요')
+            brands.b_id.focus();
+            return
+        }
+        else if(brand.b_pw.value==''){
+            alert('비밀번호를 입력해주세요')
+            brands.b_pw.focus();
+            return
+        }
+        else if(brand.b_chpw.value==''){
+            alert('비밀번호확인란을 입력해주세요')
+            brands.b_chpw.focus();
+            return
+        }
+        else if(brand.b_chpw.value!=brand.b_pw.value){
+            alert('비밀번호를 확인해주세요')
+            brands.b_pw.focus();
+            return 
+        }
+        else if(brand.tel1.value==''|| brand.tel2.value=='' || brand.tel3.value==''){
+            alert('연락처를 입력해주세요')
+            brands.tel1.focus();
+            return 
+        }
+        else if(brand.b_email.value==''){
+            alert('이메일 주소를 입력해주세요')
+            brands.b_email.focus();
+            return 
+        }
+        else if(brand.b_serialnum.value==''){
+            alert('사업자등록번호를 입력해주세요')
+            brands.b_serialnum.focus();
+            return 
+        }
+        else{
+            brand.submit();
+        }
+        
+
+       
+    }
+</script> 
+{%endblock%}
+
+{% block content %}
+<div style="display: flex; justify-content: center;">
+    <form action="/brands/bcheckjoinform/" method="post" enctype="multipart/form-data" name = "brandsjoin">
+        {% csrf_token %}
+        <table>
+            <caption style="font-size: 1.5em; font-weight: bolder;">회원 가입<br><br></caption>
+            <tr>
+                <td>Brand_Category</td>
+                <td>
+                    <select name = "bc_no">
+                        {% for b in bcate %}
+                        <option value="{{b.bc_no}}">{{b.bc_catename}}</option>
+                        {%endfor%}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>홈페이지</td>
+                <td><input type="text" name = "b_url"></td>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td><input type="text" name = "b_addr"></td>
+            </tr>
+            <tr>
+                <td>관리자성함</td>
+                <td><input type="text" name = "b_managername"></td>
+            </tr>
+            <tr>
+                <td>브랜드한글이름</td>
+                <td><input type="text" name = "b_korname"></td>
+            </tr>
+            <tr>
+                <td>브랜드영어이름</td>
+                <td><input type="text" name = "b_engname"></td>
+            </tr>
+            <tr>
+                <td>브랜드 정보</td>
+                <td><textarea cols="22" rows="10" name = "b_info"></textarea></td>
+            </tr>
+            <tr>
+                <td>브랜드이미지</td>
+                <td><input type="file" name = "b_img" accept="image/*" ></td>
+            </tr>
+            <tr>
+                <td>아이디</td>
+                <td><input type="text" name = "b_id"></td>
+            </tr>
+            <tr>
+                <td>비밀번호</td>
+                <td><input type="password" name = "b_pw"></td>
+            </tr>
+            <tr>
+                <td>비밀번호확인</td>
+                <td><input type="password" name = "b_chpw"></td>
+            </tr>
+            <tr>
+                <td>연락처</td>
+                <td>
+                    <input type="text" name = "tel1" size="1">-
+                    <input type="text" name = "tel2" size="3">-
+                    <input type="text" name = "tel3" size="3">
+                </td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td><input type="text" name = "b_email"></td>
+            </tr>
+            <tr>
+                <td>사업자번호</td>
+                <td><input type="text" name = "b_serialnum"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button type="button" onclick="javascript:chf()">Join</button>
+                    <input type="button" value="Reset" onclick="document.join.reset()">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

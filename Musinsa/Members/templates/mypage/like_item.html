@@ -1,0 +1,31 @@
+{%extends 'layout/main_layout.html'%}
+
+{% block title %}
+    like_item
+{% endblock %}
+{% block content %}
+    <h1>마이페이지</h1>
+    <p>{{ user.u_no }}</p>
+    <p>{{ user.u_id }}</p>
+    <p>{{ user.u_pw }}</p>
+    <p>{{ user.u_name }}</p>
+    <p>{{ user.u_ninkname }}</p>
+    <p>{{ user.u_hp }}</p>
+    <p>{{ user.u_email }}</p>
+    <p>{{ user.u_birth }}</p>
+    <p>{{ user.u_joindate }}</p>
+    <p>{{ user.u_agree }}</p>
+    <p>{{ user.u_self_cert }}</p>
+    <p>{{ user.u_refundnum }}</p>
+    <p>{{ user.u_point }}</p>
+    <p>{{ user.g_no }}</p>
+    <p>{{ user.u_dep }}</p>
+    <form action="/members/pwpage">
+        <input type="hidden" name="kind" value="0">
+        <button type="submit">내 정보 수정</button>
+    </form>
+    <form action="/members/pwpage">
+        <input type="hidden" name="kind" value="1">
+        <button type="submit">탈퇴하기</button>
+    </form>
+{% endblock %}

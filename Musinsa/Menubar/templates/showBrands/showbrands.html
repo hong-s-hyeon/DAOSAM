@@ -1,0 +1,16 @@
+{% extends 'layout/main_layout.html' %}
+
+
+
+{% block content %}
+{% for b in brands %}
+<a href="/menubar/branditem/?no={{b.b_no}}"><h3>{{b.b_korname}}</h3></a>
+<div>
+    <img src="{{b.b_img.url}}" class="img-thumbnail" alt="...">
+</div>
+ 가입일자 : {{b.b_joindate|date:'Y.m.d.'}} | 조회수 : {{b.b_hit}} | {{b.b_engname}}<br><br>
+ {%autoescape off%}
+ {{b.b_info}}<br><br>
+{%endautoescape%}
+ {%endfor%}
+{% endblock %}

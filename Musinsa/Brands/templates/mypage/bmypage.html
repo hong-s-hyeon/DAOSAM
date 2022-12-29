@@ -1,0 +1,220 @@
+{% extends 'layout/brand_layout.html' %}
+
+{% block script %}
+<script type="text/javascript">
+    // function chf(){
+    //     const brand = document.brandsjoin;
+    //     if(brand.bc_no.value==''){
+    //         alert('브랜드의 분류를 등록해주세요')
+    //         brands.bc_no.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_url.value==''){
+    //         alert('홈페이지 주소를 입력해주세요')
+    //         brands.b_url.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_addr.value==''){
+    //         alert('주소를 입력해주세요')
+    //         brands.b_addr.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_managername.value==''){
+    //         alert('관리자 성함를 입력해주세요')
+    //         brands.b_managername.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_korname.value==''){
+    //         alert('한글 브랜드명을 입력해주세요')
+    //         brands.b_korname.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_engname.value==''){
+    //         alert('영문 브랜드명을 입력해주세요')
+    //         brands.b_engname.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_info.value==''){
+    //         alert('브랜드 소개글을 입력해주세요')
+    //         brands.b_info.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_img.value==''){
+    //         alert('이미지를 등록해주세요')
+    //         brands.b_img.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_id.value==''){
+    //         alert('아이디를 입력해주세요')
+    //         brands.b_id.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_pw.value==''){
+    //         alert('비밀번호를 입력해주세요')
+    //         brands.b_pw.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_chpw.value==''){
+    //         alert('비밀번호확인란을 입력해주세요')
+    //         brands.b_chpw.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_chpw.value!=brand.b_pw.value){
+    //         alert('비밀번호를 확인해주세요')
+    //         brands.b_pw.focus();
+    //         return false;
+    //     }
+    //     else if(brand.tel1.value==''or brand.tel2.value=='' or brand.tel3.value==''){
+    //         alert('연락처를 입력해주세요')
+    //         brands.tel1.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_email.value==''){
+    //         alert('이메일 주소를 입력해주세요')
+    //         brands.b_email.focus();
+    //         return false;
+    //     }
+    //     else if(brand.b_serialnum.value==''){
+    //         alert('사업자등록번호를 입력해주세요')
+    //         brands.b_serialnum.focus();
+    //         return false;
+    //     }
+        
+
+        //return true;
+    // }
+</script> 
+{%endblock%}
+{%block style%}
+<style type="text/css">
+    td {
+        text-align: center;
+    }
+</style>
+{%endblock%}
+{% block content %}
+<div style="display: flex; justify-content: center;">
+    <table>
+        <caption style="font-size: 1.5em; font-weight: bolder;">회원 정보<br></caption>
+        <tr>
+            <th>Brand_Category</th>
+            <td>
+                
+                
+                {{b.bc_no.bc_catename}}
+                
+                
+            </td>
+        </tr>
+        <tr>
+                <th>홈페이지</th>
+                <td>{{b.b_url}}</td>
+            </tr>
+            <tr>
+                <th>주소</th>
+                <td>{{b.b_addr}}</td>
+            </tr>
+            <tr>
+                <th>관리자성함</th>
+                <td>{{b.b_managername}}</td>
+            </tr>
+            <tr>
+                <th>브랜드한글이름</th>
+                <td>{{b.b_korname}}</td>
+            </tr>
+            <tr>
+                <th>브랜드영어이름</th>
+                <td>{{b.b_engname}}</td>
+            </tr>
+            <tr>
+                <th>브랜드 정보</th>
+                {% autoescape off%}
+                <td>{{b.b_info}}</td>
+                {%endautoescape%}
+            </tr>
+            <tr>
+                <th>브랜드이미지</th>
+                <td>
+                    <img src="{{b.b_img.url}}" alt="">
+                    
+                </td>
+            </tr>
+            <tr>
+                <th>아이디</th>
+                <td>{{b.b_id}}</td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <!-- <td>{{b.b_pw}}</td> -->
+                <td>{{pw}}</td>
+            </tr>
+            
+            <tr>
+                <th>연락처</th>
+                <td>
+                    {{tel1}}-{{tel2}}-{{tel3}}
+                </td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td>{{b.b_email}}</td>
+            </tr>
+            <tr>
+                <th>사업자번호</th>
+                <td>{{serialnum}}</td>
+            </tr>
+            <tr>
+                <th>환불계좌</th>
+                <td>{{b.b_refund_num}}</td>
+            </tr>
+            <tr>
+                <th colspan="2" align="right">
+                    <input type="button" value="정보수정" onclick="location.href='/brands/bselectmode/?m=1'">
+                    <input type="button" value="회원탈퇴" onclick="location.href='/brands/bselectmode/?m=2'">
+                </th>
+            </tr>
+        </table>
+    </form>
+</div>
+<div style="display: flex; justify-content: center;">
+    <table align="center">
+        <caption style="font-size: 1.5em; font-weight: bolder;">추가 정보<br></caption>
+        
+        <tr>
+            <th>가입승인일</th>
+            <td>
+                
+                
+                {{b.b_joindate}}
+                
+                
+            </td>
+        </tr>
+        <!-- <tr>
+                <th>환불계좌</th>
+                <td>{{b.b_refund_num}}</td>
+            </tr> -->
+            <tr>
+                <th>브랜드'좋아요'수</th>
+                <td>{{b.b_likecnt}}</td>
+            </tr>
+            <tr>
+                <th>가입승인여부</th>
+                <td>상태 : {{b.b_confirm}}</td>
+            </tr>
+            <tr>
+                <th>브랜드 판매액</th>
+                <td>{{b.b_sellmoney}}</td>
+            </tr>
+            <tr>
+                <th>브랜드 조회수</th>
+                <td>{{b.b_hit}}</td>
+            </tr>
+            <tr>
+                <th>브랜드 상품 판매량</th>
+                <td>{{b.b_sellcnt}}</td>
+            </tr>
+            
+    </table>
+</div>
+{% endblock %}

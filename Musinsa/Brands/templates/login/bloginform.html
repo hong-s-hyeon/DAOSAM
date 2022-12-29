@@ -1,0 +1,54 @@
+{% extends 'layout/brand_layout.html' %}
+{% block script %}
+    <script type="text/javascript">
+        function check(f){
+            const id = f.id.value;
+            const pw = f.pw.value;
+            if(id == ''){
+                alert("ID를 입력하십시오!");
+                f.id.focus();
+                return false;
+            }
+            if(pw == ''){
+                alert("PW를 입력하십시오!");
+                f.pw.focus();
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+{% endblock %}
+{%block content%}
+<div style="display: flex; justify-content: center;">
+    <form action = '/brands/bcheckloginform/' method="post" name="login" onsubmit="return check(this);">
+        {% csrf_token %}
+        <table>
+            <caption style="font-size: 1.5em; font-weight: bolder;">로그인<br><br></caption>
+            <tr>
+                <th>ID</th>
+                <td>
+                    <input type="text" name="id" value="{{id}}">
+                </td>
+            </tr>
+            <tr>
+                <th>PW</th>
+                <td><input type="password" name="pw"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <span style="float: left; font-size: 0.7em; font-weight: bold; margin-top: 5px;">
+                        {% if check %}
+                            <input type="checkbox" name="ckid" value="dfgd" checked>아이디 기억하기
+                        {% else %}
+                            <input type="checkbox" name="ckid" value="dfgdg">아이디 기억하기
+                        {% endif %}
+                    </span>
+                    <input type="submit" value="Login">
+                    <input type="button" value="Back" onclick="history.back()">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+{% endblock %}

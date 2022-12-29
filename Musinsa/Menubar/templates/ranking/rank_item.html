@@ -1,0 +1,25 @@
+{% extends 'layout/main_layout.html' %}
+
+
+
+{% block content %}
+{%load user_template%}
+<table>
+    <tr>
+        {% for i in items|size %}
+        <td width="160px">
+            <div>
+                <a href="/menubar/itemdetail/?no={{items|allit:i}}">
+                    <img src="{{ il|indexOfimage:i}}" alt="" width="120px" height="150px"><br>
+                </a>
+                    {% autoescape off %}
+                        {{items|abc:i}}
+                    {% endautoescape %}
+            </div>
+        </td>
+        {% endfor %}
+        
+    </tr>
+</table>
+            
+{% endblock %}

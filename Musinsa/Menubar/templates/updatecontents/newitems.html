@@ -1,0 +1,41 @@
+{% extends 'layout/main_layout.html' %}
+
+
+
+{% block content %}
+{%load user_template%}
+
+    <table>
+        <tr>
+            {%if items_size|size != 0 %}
+            {% for i in items_size|size %}
+                <td width="160px">
+                    <div>
+                        <a href="/menubar/itemdetail/?no={{items_size|allit:i}}">
+                            <img src="{{ il|indexOfimage:i}}" alt="" width="120px" height="150px"><br>
+                        </a>
+                            {% autoescape off %}
+                                {{items_size|abc:i}}
+                            {% endautoescape %}
+                    </div>
+                </td>
+            {% endfor %}
+            {%endif%}
+            {% if items_ssize|size != 0 %}
+            {% for i in items_ssize|size %}
+                <td width="160px">
+                    <div>
+                        <a href="/menubar/itemdetail/?no={{items_ssize|allit:i}}">
+                            <img src="{{ sil|indexOfimage:i}}" alt="" width="120px" height="150px"><br>
+                        </a>
+                            {% autoescape off %}
+                                {{items_ssize|abc:i}}
+                            {% endautoescape %}
+                    </div>
+                </td>
+            {% endfor %}
+            {%endif%}
+        </tr>
+    </table>
+            
+{% endblock %}

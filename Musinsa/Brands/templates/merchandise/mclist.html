@@ -1,0 +1,78 @@
+{% extends 'layout/brand_layout.html' %}
+
+{% block content %}
+<div style="width: 100%; margin: 0px auto;">
+    <table style="width: inherit; margin: 0px auto; text-align: center;">
+        <tr>
+            <th>번호</th>
+            <th>상품명</th>
+            <th>가격</th>
+            <th>like</th>
+            <th>등록일</th>
+            <th></th>
+        </tr>
+        {% for m in ms %}
+            <tr>
+                <td>{{ m.it_no }}</td>
+                <td>
+                    {{ m.it_name }}
+                    <!-- ?no={{b.no}} : 파라미터 -->
+                </td>
+                <!-- ⬇️ join : 
+                    select * from board,b 
+                        left join member, m
+                        on b.member_no = m.no
+                        order by desc-->
+                <td>{{ m.it_price}}</td>   <!-- b.member_no : board table class에 접근. -->
+                <!-- <td>{{ b.member_no.email }}</td> -->
+                <td>{{ m.it_likecnt }}</td>
+                <td width="130px">{{ m.it_regdate|date:'Y년m월d일' }}</td>
+                <!-- ⬆️ 커스텀 태그 -->
+                <td width="160px">
+                    <button type="button" onclick="location.href='/brands/bextraAdd/?no={{m.it_no}}'">추가등록</button>
+                    <button type="button" onclick="location.href='/brands/bstockregister/?no={{m.it_no}}'">재고등록</button>
+                    <button type="button" onclick="location.href='/brands/bstockcheckform/?no={{m.it_no}}'">재고확인</button>
+                    <button type="button" onclick="location.href='/brands/bstockupdateform/?no={{m.it_no}}'">재고수정</button>
+
+                    <button type="button" onclick="location.href='/brands/deleteitem/?no={{m.it_no}}'">삭제</button>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center;">
+                    등록된 상품이 존재하지 않습니다.
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+    <div style="text-align: right; margin-top: 10px;">
+        {% if request.session.brandlogin != None %}
+        <!-- session.login이 None이 아니라면 => 로그인이 되어 있다면 -->
+            <button onclick="document.location.href='/brands/mcregisterform/'">상품등록</button>    <!-- redirect방식 : request,response를 새로 만들어서 사용 -->
+        {% endif %}
+    </div>
+    <!-- <div style="text-align: center; margin-top: 10px;">
+        {% if list.has_previous %}
+            <a href="/board/list/?page=1">[<<]</a>
+            <a href="/board/list/?page={{ list.previous_page_number }}">[<]</a>
+        {% else %}
+            [<<][<]
+        {% endif %}
+        {% for page_number in list.paginator.page_range %}
+            {% if start_page <= page_number and end_page >= page_number %}
+                {% if page_number == list.number %}
+                    <a href="#" style="font-weight: bolder; color: chocolate;">[{{page_number}}]</a>
+                {% else %}
+                    <a href="/board/list/?page={{ page_number }}">[{{page_number}}]</a>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        {% if list.has_next %}
+            <a href="/board/list/?page={{ list.next_page_number }}">[>]</a>
+            <a href="/board/list/?page={{last_page}}">[>>]</a>
+        {% else %}
+            [>][>>]
+        {% endif %}
+    </div> -->
+</div>
+{% endblock %}

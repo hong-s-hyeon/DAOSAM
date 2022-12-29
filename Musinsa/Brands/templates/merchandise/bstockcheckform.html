@@ -1,0 +1,85 @@
+{% extends 'layout/brand_layout.html' %}
+{%block style%}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{%endblock%}
+
+{% block content %}
+{% load user_template %}
+<div style="display: flex; justify-content: center;">
+    <form action="/brands/bcheckstockregisterform/" method="post" name="stockfom">
+        {% csrf_token %}
+        <input type="hidden" name="no" value="{{item.it_no}}">
+        <table>
+            <caption style="font-size: 1.5em; font-weight: bolder;">상품재고관리<br><br></caption>
+           
+            <tr>
+                <th>상품번호</th>
+                {% for s in stock %}
+                <th>{{s.st_no}}</th>
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>브랜드</th>
+                {% for s in stock %}
+                <th>{{s.b_no.b_korname}}</th>
+                   
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>상품명</th>
+                {% for s in stock %}
+                
+                <th>{{s.it_no.it_name}}</th>
+                  
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>색상</th>
+                {% for s in stock %}
+                <th>{{s.col_no.col_name}}</th>
+                   
+                {% endfor %}
+            </tr>
+            <tr>
+                {%if item.bigcate_no.bigcate_no != 1 and item.bigcate_no.bigcate_no != 2 and item.bigcate_no.bigcate_no != 3 %}
+                <th>사이즈</th>
+                {% for s in stock %}
+                <th>{{s.ss_no.ss_name}}</th>
+                {% endfor %}
+                {%else%}
+                <th>사이즈</th>
+                {% for s in stock %}
+                <th>{{s.s_no.s_name}}</th>
+                {%endfor%}
+                {%endif%}
+            </tr>
+            <tr>
+                <th>재고</th>
+                {% for s in stock %}
+                <th>{{s.st_cnt}}</th>
+                   
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>판매량</th>
+                {% for s in stock %}
+                <th>{{s.st_sellcnt}}</th>
+                    
+                {% endfor %}
+            </tr>
+            <tr>
+                <th>상태</th>
+                {% for s in stock %}
+                    <th>{{s.st_status}}</th>
+                {% endfor %}
+            </tr>
+            
+        </table>
+    </form>
+</div>
+
+{% endblock %}

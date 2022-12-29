@@ -1,0 +1,231 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content
+        must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <!-- Bootstrap CSS -->
+        <link
+        rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+        <title>회원가입 폼</title>
+        <style>
+            html {
+            height: 100%;
+            }
+
+            body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding-top: 50px;
+            padding-bottom: 40px;
+            background-repeat: no-repeat;
+            }
+
+            .card {
+            margin: 0 auto;
+            float: none;
+            margin-bottom: 10px;
+            border: none;
+            }
+
+            #btn-Yes,
+            #btn_login {
+            background-color: rgb(250, 164, 3);
+            border: none;
+            width: 25rem;
+            margin: auto;
+
+            }
+
+            .form-control {
+            display: inline;
+            height: 40px;
+            width: 400px;
+            padding: 5px;
+            font-size: 16px;
+            margin-left: 100px;
+
+            }
+
+            #member_id {
+            padding: 10px;
+            font-size: 16px;
+            width: 250px;
+            margin-left: 100px;
+            }
+            #email {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+            margin-left: 100px;
+            }
+            .check {
+            font-size: 16px;
+            margin-left: 100px;
+            }
+            .card-title {
+
+            text-align: center;
+            }
+
+            .text {
+            margin-left: 100px;
+            }
+        </style>
+    </head>
+
+    <body
+    cellpadding="0"
+    cellspacing="0"
+    marginleft="0"
+    margintop="0"
+    width="100%"
+    height="100%">
+
+    <div class="card" style="width:40rem;">
+    <div class="card-title" style="margin-top:30px;">
+        <h2 class="card-title" style="color:#f8f8f8;"><img src="Musinsa_B.png"/></h2>
+    </div>
+    <div class="card-body">
+
+        <form
+            action="/members/checkjoinform/"
+            class="form-signin"
+            method="post"
+            name="memeberjoin">
+            {%csrf_token%}
+                <p class="text">아이디</p>
+                <input type="text" name="u_id" id="member_id" class="form-control">
+            &nbsp; &nbsp;
+                <p class="text">비밀번호</p>
+                <input type="password" name="u_pw" id="pw" class="form-control">
+                <br>
+                <p class="text">비밀번호 확인</p>
+                <input type="password" id="pw2" class="form-control">
+                <br>
+
+            <p class="text">닉네임</p>
+            <input type="text" name="u_nickname" id="nickname" class="form-control">
+            &nbsp; &nbsp;
+
+            <p class="text">이름</p>
+            <input type="text" name="u_name" id="name" class="form-control">
+            <br>
+            <!-- <p id="namech" class="check"> </p><br/> -->
+            <p class="text">생년월일</p>
+            <input
+                type="text"
+                name="u_birth"
+                id="birth_date"
+                class="form-control"
+                placeholder="19001010 형식입니다.">
+            <br>
+            <br/>
+            <p class="text">이메일</p>
+            <input type="email" name="u_email" id="email" class="form-control">
+            &nbsp; &nbsp;
+
+            <br/>
+            <p class="text">전화번호</p>
+            <input
+                type="text"
+                name="u_hp"
+                id="phone"
+                class="form-control"
+                placeholder="010-0000-0000형식"
+                onblur="javascript:telValidator();">
+                <br>
+                <br>
+            <button
+                type="button"
+                id="btn-Yes"
+                class="btn btn-lg btn-primary btn-block"
+                style="background-color: black;"
+                onclick="javascript:checkform();">회원가입
+            </button>
+            <!-- onclick="javascript:regist() 생략-->
+            <br>
+        </form>
+            <button
+                id="btn_login"
+                class="btn btn-lg btn-primary btn-block"
+                type="button"
+                style="background-color: black;"
+                onclick="location.href = '/members/loginform/' ">
+                <b>로그인하러가기</b>
+            </button>
+        </div>
+
+        </div>
+        <script>
+            function checkform(){
+                form = document.memeberjoin;
+                id = document.getElementById('member_id').value
+                pw = document.getElementById('pw').value
+                pw2 = document.getElementById('pw2').value
+                nickname = document.getElementById('nickname').value
+                name = document.getElementById('name').value
+                birth_date = document.getElementById('birth_date').value
+                email = document.getElementById('email').value
+                phone = document.getElementById('phone').value
+                
+            
+                if (id==""){
+                    alert('아이디를 입력해주세요')
+                }
+                else if(pw==''){
+                    alert('비밀번호를 입력해주세요')
+                }
+                else if(pw2==''){
+                    alert('비밀번호 확인을 입력해주세요')
+                }
+                else if(pw!=pw2){
+                    alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.')
+                }
+                else if(nickname==''){
+                    alert('닉네임를 입력해주세요')
+                }
+                else if(name==''){
+                    alert('이름를 입력해주세요')
+                }
+                else if(birth_date==''){
+                    alert('생년월일를 입력해주세요')
+                }
+                else if(email==''){
+                    alert('이메일를 입력해주세요')
+                }
+                else if(phone==''){
+                    alert('전화번호를 입력해주세요')
+                }
+                else{
+                    form.submit();
+                }
+                return;
+            }
+
+            function telValidator() {
+                const msg = '유효하지 않는 전화번호입니다.';
+                // IE 브라우저에서는 당연히 var msg로 변경
+                phone = document.getElementById('phone').value
+                console.log(phone)
+                if (/^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/.test(phone)) {
+                    return true;
+                }
+                alert(msg);
+                return false;
+            }
+        </script>
+    </body>
+</html>

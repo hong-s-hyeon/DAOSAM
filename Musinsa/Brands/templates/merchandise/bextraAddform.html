@@ -1,0 +1,268 @@
+{% extends 'layout/brand_layout.html' %}
+{%block style%}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{%endblock%}
+{% block script %}
+<!-- <script type="text/javascript">
+    function chregifom(){
+        const mcregis = document.mcregiform;
+        if(mcregis.bigcate_no.value==''){
+            alert('브랜드의 분류를 등록해주세요')
+            mcregis.bigcate_no.focus();
+            return
+        }
+        else if(mcregis.midcate_no.value==''){
+            alert('홈페이지 주소를 입력해주세요')
+            mcregis.midcate_no.focus();
+            return 
+        }
+        else if(mcregis.it_name.value==''){
+            alert('주소를 입력해주세요')
+            mcregis.it_name.focus();
+            return 
+        }
+        else if(mcregis.it_info.value==''){
+            alert('관리자 성함를 입력해주세요')
+            mcregis.it_info.focus();
+            return 
+        }
+        else if(mcregis.it_price.value==''){
+            alert('한글 브랜드명을 입력해주세요')
+            mcregis.it_price.focus();
+            return 
+        }
+        else if(mcregis.it_point.value==''){
+            alert('영문 브랜드명을 입력해주세요')
+            mcregis.it_point.focus();
+            return 
+        }
+        else if(mcregis.it_discount.value==''){
+            alert('브랜드 소개글을 입력해주세요')
+            mcregis.it_discount.focus();
+            return
+        }
+        else{
+            mcregis.submit();
+        }
+        
+
+       
+    }
+</script>  -->
+
+{%endblock%}
+
+{% block content %}
+<div style="display: flex; justify-content: center;">
+    <form action="/brands/bcheckextraddform/" method="post" enctype="multipart/form-data" name = "mcregiform">
+        {% csrf_token %}
+        <input type="hidden" name="it_no" value="{{itno}}" >
+        <table>
+            <caption style="font-size: 1.5em; font-weight: bolder;">상품상세등록<br><br></caption>
+            <tr>
+                <td>브랜드 이름</td>
+                <td>
+                    {{it.b_no.b_korname}}({{it.b_no.b_engname}})
+                </td>
+            </tr>
+            <tr>
+                <td>제품이름</td>
+                <td>{{it.it_name}}</td>
+            </tr>
+            <tr id="col">
+                <td>색상등록 <button type="button" name="addTag" id="addTag">추가</button><button type="button" name="deltag" id="delTag">삭제</button></td>
+                <td id="color">
+                    
+                </td>
+            </tr>
+            <tr id="opt">
+                <td>옵션등록 <button type="button" name="addTag1" id="addTag2">추가</button><button type="button" name="deltag1" id="delTag2">삭제</button></td>
+                <td id="option">
+
+                </td>
+            </tr>
+            {% if it.bigcate_no.bigcate_name != '신발' and it.bigcate_no.bigcate_name != '스니커즈'%}
+            <tr>
+                <td>사이즈 등록</td>
+                <td>
+                    <label><input type="checkbox" name="size" value="SSS">SSS</label>
+                    <label><input type="checkbox" name="size" value="SS">SS</label>
+                    <label><input type="checkbox" name="size" value="S">S</label>
+                    <label><input type="checkbox" name="size" value="M">M</label>
+                    <label><input type="checkbox" name="size" value="L">L</label>
+                    <label><input type="checkbox" name="size" value="XL">XL</label>
+                    <label><input type="checkbox" name="size" value="XXL">XXL</label>
+                    <label><input type="checkbox" name="size" value="XXL">XXXL</label>
+                </td>
+            </tr>
+            {%else%}
+            <tr id="shoe">
+                <td>사이즈등록 <button type="button" name="addTag" id="addTag3">추가</button><button type="button" name="deltag" id="delTag3">삭제</button></td>
+                <td id="shoes">
+                    
+                </td>
+            </tr>
+            {%endif%}
+            
+            <tr>
+                <td>제품 이미지</td>
+                <td><input type="file" name = "ii_img" accept="image/*" multiple></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button type="button" onclick="submit()">추가사항등록</button>
+                    <button type="button" value="Reset" onclick="document.mcregiform.reset()">Reset</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+     //색상
+    const addT = document.querySelector('#addTag');
+    const delT = document.querySelector('#delTag');
+    const col = document.querySelector('#col');
+    const coltd = document.querySelector('#color');
+   
+    i=1
+    j=1
+    clicking=1
+    let inputT2= document.createElement('input');
+    inputT2.setAttribute('type','hidden');
+    inputT2.setAttribute('name','cliknum');
+   
+    const clickHandler = (event) => {
+        for(i=i;i<=j;i++){
+            let inputT= document.createElement('input');
+            let brT = document.createElement('br');
+            inputT.setAttribute('type','text');
+            inputT.setAttribute('name','col'+i);
+          
+            coltd.appendChild(inputT);
+            coltd.appendChild(brT);
+
+            inputT2.setAttribute('value',''+clicking);
+            coltd.appendChild(inputT2);
+        } 
+    
+        j+=1;
+        clicking+=1;
+        console.log(clicking)
+        
+    };
+    addT.onclick = clickHandler;
+
+
+    const clickHandler2 = (event) => {
+        
+        
+            
+        j-=1;
+        clicking-=1;
+       
+        
+
+    };
+    
+    delT.onclick = clickHandler2;
+    
+    //옵션
+    const addT2 = document.querySelector('#addTag2');
+    const delT2 = document.querySelector('#delTag2');
+    const opt = document.querySelector('#opt');
+    const opttd = document.querySelector('#option');
+
+    x=1
+    y=1
+    clicking2=1
+    let inputT4= document.createElement('input');
+    inputT4.setAttribute('type','hidden');
+    inputT4.setAttribute('name','cliknum1');
+   
+
+    const clickHandler3 = (event) => {
+        console.log('add들어옴');
+        
+        for(x=x;x<=y;x++){
+          
+            let inputT3= document.createElement('input');
+            let brT2 = document.createElement('br');
+            inputT3.setAttribute('type','text');
+            inputT3.setAttribute('name','opt'+x);
+          
+            opttd.appendChild(inputT3);
+            opttd.appendChild(brT2);
+
+            inputT4.setAttribute('value',''+clicking2);
+            opttd.appendChild(inputT4);
+        } 
+        y+=1;
+        clicking2+=1;
+        console.log(clicking2)
+        
+    };
+    addT2.onclick = clickHandler3;
+    // const clickHandler4 = (event) => {
+    //     console.log('del들어옴');
+        // for(x=clicking2;x<=clicking2;x--){
+        //     deltag= document.querySelector('input[name="opt'+x+'"]')
+        //     deltagact=document.del
+        // }
+        // h = clicking2-1
+        // strr='#opt'+h+''
+        // console.log(strr)
+        // console.log(typeof(strr))
+        // $('#ad').remove();
+        // clicking2-=1;
+        
+    // };
+    // $('#delTag2').click(function(){
+    //     // h = clicking2-1
+    //     // strr='#opt'+h+''
+    //     $('tr').remove('#ad');
+    // });
+    // delT2.onclick = clickHandler4;
+
+
+    //신발사이즈
+    const shoe = document.querySelector('#shoe');
+    const shoetd = document.querySelector('#shoes');
+    const addT3 = document.querySelector('#addTag3');
+    const delT3 = document.querySelector('#delTag3');
+    
+    p=1
+    q=1
+    clicking3=1
+    let inputHT= document.createElement('input');
+    inputHT.setAttribute('type','hidden');
+    inputHT.setAttribute('name','scliknum');
+
+
+    const shoesizeHandler = (envent) =>{
+        for(p=p;p<=q;p++){
+          
+          let ssinputT= document.createElement('input');
+          let brT3 = document.createElement('br');
+          ssinputT.setAttribute('type','text');
+          ssinputT.setAttribute('name','ss'+p);
+        
+          shoetd.appendChild(ssinputT);
+          shoetd.appendChild(brT3);
+
+          inputHT.setAttribute('value',''+clicking3);
+          shoetd.appendChild(inputHT);
+      } 
+      q+=1;
+      clicking3+=1;
+      console.log(clicking3)
+    };
+    
+    addT3.onclick = shoesizeHandler;
+</script>
+
+
+{% endblock %}

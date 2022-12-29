@@ -1,0 +1,153 @@
+<!-- 기본 layout 받아오기 -->
+{%extends 'layout/main_layout.html'%}
+
+<!-- 웹 제목 -->
+{% block title %}
+    내 정보 수정하기(제목)
+{% endblock %}
+
+<!-- 이 페이지에서 사용될 독자적인 style -->
+{% block style %}
+    <style>
+        body {
+            background: rgb(255, 255, 255);
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #BA68C8;
+        }
+
+        .profile-button {
+            background: rgb(0, 0, 0);
+            box-shadow: none;
+            border: none;
+        }
+
+        .profile-button:hover {
+            background: #682773;
+        }
+
+        .profile-button:focus {
+            background: #682773;
+            box-shadow: none;
+        }
+
+        .profile-button:active {
+            background: #000000;
+            box-shadow: none;
+        }
+
+        .back:hover {
+            color: #8f8f8f;
+            cursor: pointer;
+        }
+
+        .labels {
+            font-size: 11px;
+        }
+
+        .add-experience:hover {
+            background: #636363;
+            color: #fff;
+            cursor: pointer;
+            border: solid 1px #797879;
+        }
+    </style>
+{% endblock %}
+
+<!-- body 내부의 content -->
+{% block content %}
+    <div class="container rounded bg-white mt-5 mb-5">
+        <form action="/members/updateInfo/" method="post" name="updateF">
+            {%csrf_token%}
+            <div class="row" style="justify-content: center;">
+                <div class="col-md-5 border-right">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h4 class="text-right">기본회원정보</h4>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <label class="labels">아이디</label><input
+                                    type="text"
+                                    class="form-control"
+                                    name="u_id"
+                                    value="{{user.u_id}}"
+                                    readonly="readonly"></div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <label class="labels">비밀번호</label><input type="text" class="form-control" name="u_pw" value="{{user.u_pw}}"></div>
+                            <div class="col-md-12">
+                                <label class="labels">이름</label><input type="text" class="form-control" name="u_name" value="{{user.u_name}}"></div>
+                            <div class="col-md-12">
+                                <label class="labels">닉네임</label><input
+                                    type="text"
+                                    class="form-control"
+                                    name="u_nickname"
+                                    value="{{user.u_nickname}}"></div>
+                            <div class="col-md-12">
+                                <label class="labels">이메일</label><input type="text" class="form-control" name="u_email" value="{{user.u_email}}"></div>
+                            <div class="col-md-12">
+                                <label class="labels">휴대전화</label><input type="text" class="form-control" name="u_hp" value="{{user.u_hp}}"></div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label class="labels">생년월일</label><input
+                                        type="text"
+                                        class="form-control"
+                                        name="u_birth"
+                                        value="{{user.u_birth}}"
+                                        readonly="readonly"></div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">환불계좌</label><input
+                                            type="text"
+                                            class="form-control"
+                                            placeholder="환불 받을 계좌를 등록해 주세요"
+                                            name="u_refundnum"
+                                            value="{{ user.u_refundnum }}"></div>
+                                    <div class="col-md-12">
+                                        <label class="labels">배송지</label><input type="text" class="form-control" name="d_addr" value="{{ deli.d_addr }}"></div>
+                                    <div class="col-md-12">
+                                        <label class="labels">수령인</label><input
+                                            type="text"
+                                            class="form-control"
+                                            name="d_recipient"
+                                            value="{{ deli.d_recipient }}"></div>
+                                    <div class="col-md-12">
+                                        <label class="labels">배송지명</label><input type="text" class="form-control" name="d_name" value="{{ deli.d_name }}"></div>
+                                    <div class="col-md-12">
+                                        <label class="labels">휴대전화</label><input
+                                            type="text"
+                                            class="form-control"
+                                            name="d_phone"
+                                            value="{{ deli.d_phone }}"></div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-12">
+                                        <label class="labels">결제수단 명</label><input
+                                            type="text"
+                                            class="form-control"
+                                            name="p_name"
+                                            value="{{ payment.p_name }}"></div>
+                                    <div class="col-md-12">
+                                        <label class="labels">결제카드번호</label><input
+                                            type="text"
+                                            class="form-control"
+                                            name="p_cardnum"
+                                            value="{{ payment.p_cardnum }}"></div>
+                                </div>
+
+                            </div>
+                            <div class="mt-5 text-center">
+                                <button class="btn btn-primary profile-button" type="submit">수정완료</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% endblock %}

@@ -1,0 +1,38 @@
+{%extends 'layout/main_layout.html'%}
+
+
+
+{% block content %}
+{%load user_template%}
+<div style="padding-top:12px ; padding-left: 20px;">
+    <a href="/menubar/regdateitem/"><h3 style="display:inline-block ;"> &nbsp;등록일자순&nbsp; </h3></a>
+    &nbsp;|&nbsp; 
+    <a href="/menubar/priceitem/" style="display:inline-block ;"><h3>&nbsp; 가격순 &nbsp;</h3></a>
+    &nbsp;|&nbsp; 
+    <a href="/menubar/discountitem/" style="display:inline-block ;"><h3>&nbsp; 할인순 &nbsp;</h3></a>
+</div>
+
+<hr>
+<hr>
+<br>
+<div style="padding-left: 20px;"> 
+    <table>
+        <tr>
+            {% for i in items|size %}
+            <td width="160px">
+                <div>
+                    <a href="/menubar/itemdetail/?no={{items|allit:i}}">
+                        <img src="{{ il|indexOfimage:i}}" alt="" width="120px" height="150px"><br>
+                    </a>
+                        {% autoescape off %}
+                            {{items|abc:i}}
+                        {% endautoescape %}
+                </div>
+            </td>
+            {% endfor %}
+            
+        </tr>
+    </table>
+</div>   
+            
+{% endblock %}

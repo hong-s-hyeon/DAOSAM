@@ -1,0 +1,49 @@
+{%extends 'layout/brand_layout.html'%}
+
+{% block title %}Update Page{% endblock %}
+
+{% block script %}
+    <script>
+        function checkwho(){
+            if(document.whofom.pw.value==""){
+                alert('비밀번호를 입력해주세요');
+                document.checkwho.no.focus();
+                
+            }
+            else if (document.whofom.name.value==""){
+                alert('사업자등록번호를 입력해주세요');
+                document.whofom.name.focus();
+            }
+            else{
+                document.whofom.submit();
+            }
+        }
+    </script>
+{%endblock%}
+
+{%block content%}
+<div align="center">
+    <form action="/brands/bcheckselect/" method="post" name="whofom">
+        {% csrf_token %}
+        <input type="hidden" value="{{m}}" name="mode">
+        <caption align="center"><h4>정보 입력</h4></caption>
+        <table border="1" >
+            <tr>
+                <th>비밀번호 입력</th>
+                <td><input type="password" name="pw" placeholder="비밀번호 입력"></td>
+            </tr>
+            <tr>
+                <th >사업자등록번호</th>
+                <td><input type="text" name="serialnum" placeholder="사업자등록번호"></td>
+        
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="button" value="선택" onclick="javascript:checkwho()">
+                    <input type="reset" value="다시">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+{%endblock%}

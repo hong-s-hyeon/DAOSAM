@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block style %}{% endblock %}
+    {% block script %}{% endblock %}
+    <title>MyHome</title>
+</head>
+<body>
+    <div style="display: flex; justify-content: center;">
+        <div>
+            <div class="header">
+                {% if request.session.brandlogin != None %}
+                    <a href="/brands/bmypage/">MyPage</a> | 
+                    <a href="/brands/blogout/">Logout</a> | 
+                {% else %}
+                    <a href="/brands/bloginform/">Login</a> | 
+                    <a href="/brands/bjoinform/">Join</a> | 
+                {% endif %}
+                {% if request.session.confirm == 1%}
+                <a href="/brands/mclist/">merchandise</a> | 
+                {% endif %}
+                <a href="/brands/">Home</a> |
+                <a href="/">Store</a><br>
+            </div>
+            <div class="main">
+                {% block content %}{% endblock %}
+            </div>
+            <br>
+            <div class="footer">
+                DAOSAM Commpany copyright。
+            </div>
+        </div>
+    </div>
+</body>
+</html>

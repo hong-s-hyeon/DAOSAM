@@ -1,0 +1,157 @@
+{% extends 'layout/brand_layout.html' %}
+{%block style%}
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+{%endblock%}
+{% block script %}
+<script type="text/javascript">
+    function chregifom(){
+        const mcregis = document.mcregiform;
+        if(mcregis.bigcate_no.value==''){
+            alert('브랜드의 분류를 등록해주세요')
+            mcregis.bigcate_no.focus();
+            return
+        }
+        else if(mcregis.midcate_no.value==''){
+            alert('홈페이지 주소를 입력해주세요')
+            mcregis.midcate_no.focus();
+            return 
+        }
+        else if(mcregis.it_name.value==''){
+            alert('주소를 입력해주세요')
+            mcregis.it_name.focus();
+            return 
+        }
+        else if(mcregis.it_info.value==''){
+            alert('관리자 성함를 입력해주세요')
+            mcregis.it_info.focus();
+            return 
+        }
+        else if(mcregis.it_price.value==''){
+            alert('한글 브랜드명을 입력해주세요')
+            mcregis.it_price.focus();
+            return 
+        }
+        else if(mcregis.it_point.value==''){
+            alert('영문 브랜드명을 입력해주세요')
+            mcregis.it_point.focus();
+            return 
+        }
+        else if(mcregis.it_discount.value==''){
+            alert('브랜드 소개글을 입력해주세요')
+            mcregis.it_discount.focus();
+            return
+        }
+        else{
+            mcregis.submit();
+        }
+        
+
+       
+    }
+</script> 
+
+{%endblock%}
+
+{% block content %}
+<div style="display: flex; justify-content: center;">
+    <form action="/brands/bcheckmcregisterform/" method="post" name = "mcregiform">
+        {% csrf_token %}
+        <table>
+            <caption style="font-size: 1.5em; font-weight: bolder;">상품등록<br><br></caption>
+            <tr>
+                <td>브랜드 분류/브랜드 이름</td>
+                <td>
+                    {{b.bc_no.bc_catename}}
+                </td>
+            </tr>
+            <tr>
+                <td>브랜드 이름</td>
+                <td>
+                    {{b.b_korname}}({{b.b_engname}})
+                    
+                </td>
+            </tr>
+            <tr>
+                <td>대분류 등록</td>
+                <div id="bigca">
+                    <td>
+                        <select name = "bigcate_no" id="box">
+                            <option value=""></option>
+                            {% for big in bigcate %}
+                            <option value="{{big.bigcate_no}}" id="{{big.bigcate_no}}no">{{big.bigcate_name}}</option>
+                            {%endfor%}
+                        </select>
+                        <button type="button" name=""></button>
+                    </td>
+                </div>
+            </tr>
+            <tr>
+                <td>중분류 등록</td>
+                <td>
+                    
+                    <select name = "midcate_no" id="mid">
+                        <option value=""></option>
+                        {% for mid in midcate %}
+                        <option value="{{mid.midcate_no}}" id="{{mid.bigcate_no}}" class="hidden" >{{mid.midcate_name}}</option>
+                        {%endfor%}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td>제품이름</td>
+                <td><input type="text" name = "it_name"></td>
+            </tr>
+            <tr>
+                <td>제품 정보</td>
+                <td><textarea cols="22" rows="10" name = "it_info"></textarea></td>
+            </tr>
+            <tr>
+                <td>제품 가격</td>
+                <td><input type="text" name = "it_price"></td>
+            </tr>
+            <tr>
+                <td>제품 할당 포인트</td>
+                <td><input type="text" name = "it_point"></td>
+            </tr>
+            <tr>
+                <td>제품 할인율</td>
+                <td><input type="text" name = "it_discount"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <button type="button" onclick="javascript:chregifom()">제품등록</button>
+                    <input type="button" value="Reset" onclick="document.join.reset()">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script type="text/javascript">
+    const selectbox = document.querySelector('#box');
+    console.log(selectbox);
+    const boxlist = selectbox.querySelectorAll('option');
+    console.log(boxlist);
+    const midcatelist = document.querySelectorAll('#mid option');
+
+    const clickHandler1 = (event) => {
+        const midcatelist = document.querySelectorAll('#mid option');
+        const boxAddr = Array.from(boxlist);
+        const selectedArr = boxAddr.filter(opt=>{return opt.selected});
+
+        midcatelist.forEach(opt=>opt.classList.add('hidden'));
+
+        for(let i =0;i<midcatelist.length;i++){
+            const tr = midcatelist[i];
+            const trr = tr.id.charAt(0);
+            if(selectedArr[0].id.charAt(0)== trr){
+                tr.classList.remove('hidden');
+            }
+        }
+    };
+    selectbox.addEventListener('change',clickHandler1)
+</script>
+{% endblock %}

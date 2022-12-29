@@ -1,0 +1,158 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link
+            href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+            rel="stylesheet"
+            id="bootstrap-css">
+        <style>
+            body {
+                font-family: "Lato", sans-serif;
+            }
+
+            .main-head {
+                height: 150px;
+                background: #FFF;
+
+            }
+
+            .sidenav {
+                height: 100%;
+                background-color: #000;
+                overflow-x: hidden;
+                padding-top: 20px;
+            }
+
+            .main {
+                padding: 0 10px;
+            }
+
+            @media screen and (max-height: 450px) {
+                .sidenav {
+                    padding-top: 15px;
+                }
+            }
+
+            @media screen and (max-width: 450px) {
+                .login-form {
+                    margin-top: 10%;
+                }
+
+                .register-form {
+                    margin-top: 10%;
+                }
+            }
+
+            @media screen and (min-width: 768px) {
+                .main {
+                    margin-left: 50%;
+                    margin-top: -6%;
+                }
+
+                .sidenav {
+                    width: 50%;
+                    position: fixed;
+                    z-index: 1;
+                    top: 0;
+                    left: 0;
+                }
+
+                .login-form {
+                    margin-top: 80%;
+                }
+
+                .register-form {
+                    margin-top: 20%;
+                }
+            }
+
+            .login-main-text {
+                margin-top: 20%;
+                padding: 60px;
+                color: #fff;
+            }
+
+            .login-main-text h1, .login-main-text h3 {
+                font-weight: 300;
+                text-align: right;
+            }
+
+            .btn-black {
+                background-color: #000 !important;
+                color: #fff;
+            }
+        </style>
+        <title>Document</title>
+    </head>
+    <body>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <!------ Include the above in your HEAD tag ---------->
+
+        <div class="sidenav">
+            <div class="login-main-text">
+                <h1 onclick="location.href='/'">DAOSAM</h1>
+                <h3>Login Page</h3>
+            </div>
+        </div>
+        <div class="main">
+            <div class="col-md-6 col-sm-12">  
+                <div class="login-form">
+                    <form action="/members/checkloginform/" method="post" name="memberlogin">
+                    {%csrf_token%}
+                        <div class="form-group">
+                            <label>ID</label>
+                            {% if u_id == None %}
+                                <input type="id" name="u_id" class="form-control" placeholder="아이디">
+                            {% else %}
+                                <input type="id" name="u_id" value="{{u_id}}" class="form-control">
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" name="u_pw" class="form-control" placeholder="비밀번호">
+                        </div>
+                        <div style="display: flex;">
+                            {% if check %}
+                                <input type="checkbox" name="ckid" value="true" checked>아이디 기억하기
+                            {% else %}
+                                <input type="checkbox" name="ckid" value="true">아이디 기억하기
+                            {% endif %}
+                            <div style="margin-left: 23%;">
+                                <a style="color: black; text-decoration: none; font-size: 0.2rem;" href="/members/findid">아이디 찾기</a>
+                                |
+                                <a style="color: black; text-decoration: none; font-size: 0.2rem;" href="/members/findpw">비밀번호 찾기</a>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-black" onclick="javascript:checkform()">로그인</button>
+                        <button type="button" class="btn btn-secondary" onclick="location.href='/members/joinform/'">회원가입</button>
+                        <div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        function checkform(){
+            id = document.memberlogin.u_id;
+            pw = document.memberlogin.u_pw;
+        
+            if (id==""){
+                alert('아이디를 입력해주세요')
+            }
+            else if(pw==''){
+                alert('비밀번호를 입력해주세요')
+            }
+            else{
+                return true;
+            }
+            return false;
+        }
+    </script>
+    </body>
+</html>

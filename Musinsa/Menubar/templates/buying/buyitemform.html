@@ -1,0 +1,470 @@
+{% extends 'layout/main_layout.html' %}
+
+
+
+{% block content %}
+{%load user_template%}
+
+<head>   
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .header>.navigation-bar>.navbar>.container-fluid {
+            display: block;
+        }
+
+        .d-flex,
+        .navbar-brand {
+            float: left;
+        }
+
+        .navbar-collapse,
+        .navbar-toggler {
+            float: right;
+        }
+
+        .btn.btn-outline-success {
+            width: 90px;
+        }
+
+        .dropdown-toggle::after {
+            display: none;
+        }
+
+        .dropdown-item {
+            text-align: center;
+            border: 0.01rem solid black;
+        }
+
+        .dropdown-menu.show {
+            padding-top: 0;
+            padding-bottom: 0;
+            left: -52px;
+        }
+
+        .basket_cnt {
+            display: inline-block;
+            min-width: 24px;
+            margin: -1px 4px 0 0;
+            padding: 4px 5px 5px;
+            border-radius: 100%;
+            background-color: #0078ff;
+            font-size: 11px;
+            line-height: normal;
+            color: #fff;
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .nav-link.active {
+            position: relative;
+            display: flex;
+            position: relative;
+            box-sizing: border-box;
+            height: 100%;
+            padding: 0 9px 0 8px;
+            align-items: center;
+            display: flex;
+        }
+
+        .accordion-header>.accordion-button {
+            box-shadow: none;
+        }
+
+        footer>.d-flex {
+            float: none;
+        }
+
+        section>.container.text-center.text-md-start.mt-5 {
+            max-width: 1560px;
+        }
+
+        footer>.d-flex.justify-content-center {
+            justify-content: center !important;
+        }
+
+        .side_user_table_list {
+            border: 1px solid #ddd;
+        }
+
+        .side_user_table_list>h3 {
+            margin: 0;
+            padding: 20px 25px;
+        }
+
+        .inner>a {
+            text-decoration: none;
+            color: black;
+            padding: 0 30px;
+        }
+
+        .lin_height0 {
+            line-height: 0;
+        }
+
+        .arrow_button {
+            width: 52px;
+            height: 50px;
+        }
+
+        .text_color_white {
+            color: white !important;
+        }
+
+        .nav-item.dropdown>.dropdown-menu {
+            margin-top: 6px;
+        }
+    </style>
+    
+
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/static/common/1.2.0/pc.css" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/ui/build/pc/css/common.css?202109290900">
+
+    <link rel="stylesheet" type="text/css"
+        href="//static.msscdn.net/skin/musinsa/css/magazine_common.css?202202150915" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/store_common.css?202112011113" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/layout.min.css?202201131000" />
+    <link rel="stylesheet" href="//image.msscdn.net/ui/musinsa/resources/common/css/icon.min.css?202101051200" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/guide.min.css?202207141128" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/style.min.css?202207221111" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/sub.css?202206161900" />
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/media_query.css?202010301640" />
+    <!--<link rel="stylesheet" type="text/css"
+        href="//static.msscdn.net/skin/musinsa/css/font.css?20170221" />-->
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/new.css?202112010912" />
+
+    <!-- Swiper -->
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/swiper/swiper.min.css" />
+    <script src="//static.msscdn.net/swiper/swiper.min.js?20200316"></script>
+    <!-- Polyfill -->
+
+    
+
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/mini_cart.js?202208251010"></script>
+
+
+
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/jslib.js?20200601"></script>
+
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/suggestions.js?202011170900"></script>
+
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/clipboard.min.js?20170406"></script>
+
+    <script src="//static.msscdn.net/static/common/1.2.0/chunk-vendors.js"></script>
+
+    <script src="//static.msscdn.net/skin/js/app/app.js?d2499ae576ba6ad7770e"></script>
+
+    <!--jqModal-->
+    <link rel="stylesheet" type="text/css" href="//static.msscdn.net/skin/musinsa/css/jqModal.css?20160119" />
+
+    <!--//jqModal-->
+
+    
+    <style>
+        .important-style {
+            font-weight: bold !important;
+            font-size: 14px !important;
+        }
+
+        /* 결제 프로모션 */
+        .n-order-promotion {
+            color: #777;
+            font-size: 12px;
+            line-height: 18px;
+            padding: 10px;
+        }
+
+        .n-order-promotion.promotion-all {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .n-order-promotion>strong {
+            display: block;
+            color: #000;
+            margin-top: 15px;
+        }
+
+        .n-order-promotion>strong:first-child {
+            margin-top: 0;
+        }
+
+        .n-order-promotion>div {
+            margin: 5px 0;
+        }
+
+        .n-order-promotion>a {
+            display: inline-block;
+            font-weight: bold;
+            color: #000;
+            margin-top: 5px;
+        }
+    </style>
+
+    <!--order.css-->
+    <link type="text/css" rel="stylesheet" href="//static.msscdn.net/skin/musinsa/css/order.min.css?202201191144" />
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/miya_validator.js?20160119"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/order.js?202208161200"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/msspay.js?202209021124"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/order_plcc.js?202208161200"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/js/order/plcc_data.js"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/mpay.js?202202151003"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/add_dlv_area.js?20160119"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/md5.js?20160119"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/refund-account.js?202203301353"></script>
+    <script type="text/javascript" src="//static.msscdn.net/skin/musinsa/js/popup_window.js?202101201140"></script>
+    <script type="text/javascript">
+
+
+
+
+    </script>
+
+</head>
+
+
+    <!-- 바디 -->
+    <div class="body"></div>
+    <div>
+
+        <div class="wrap">
+
+            <!-- 오른쪽 콘텐츠 영역 -->
+            <div class="mypage-cont" style="width: 100%;">
+                <!-- 컨텐츠 영역 -->
+
+                <form name="buyitemform" id="f1" method="post" action="/menubar/checkbuyitemform/" onsubmit="">
+                    {%csrf_token%}
+                    <input type="hidden" name="uno" value="{{user.u_no}}">
+                    <input type="hidden" name="pno" value="{{payment.p_no}}">
+                    <input type="hidden" name="dno" value="{{delivery.d_no}}">
+                    <input type="hidden" name="stno" value="{{stock.st_no}}">
+                    <input type="hidden" name="qn" value="{{quantity}}">
+                    <input type="hidden" name="itno" value="{{item.it_no}}">
+                    <input type="hidden" name="price" value="{{price}}">
+                    
+                    <div class="right_contents section_address section_address--line">
+                        <div class="cell_order_form article_tit">
+                            <div class="cell_order_form1">
+                                <h3 class="title-box font-mss">Recipient Info
+                                    <span class="korSub">수령자 정보</span>
+                                </h3>
+                            </div>
+                            <div class="cell_order_form2" style="display:none">
+                                <h3 class="title-box font-mss">Buyer Info
+                                    <span class="korSub">구매자 정보</span>
+                                </h3>
+                            </div>
+                        </div>
+
+                        <div class="cell_order_form box_address_cell">
+                            <div class="clear cell_order_form1 border_add_order">
+                                <!--수령자 정보-->
+                                <ul class="box_receiver_info">
+                                    <li class="cell_discount_tit">
+                                        배송지
+                                    </li>
+                                    <li class="cell_discount_detail">
+                                        {{delivery.d_name}}
+                                    </li>
+                                </ul>
+                                <ul class="box_receiver_info">
+                                    <li class="cell_discount_tit">수령인</li>
+                                    <li class="cell_discount_detail2 order_address_form box_receiver">
+                                        <div class="recent-addr">
+                                            <span id="delivery-name">{{user.u_name}}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <ul class="box_receiver_info">
+                                    <li class="cell_discount_tit">휴대전화</li>
+                                    <li class="cell_discount_detail order_address_form box_phone">
+                                        <div class="recent-addr">
+                                            <span id="delivery-mobile">{{user.u_hp}}</span>
+                                        </div>
+
+                                    </li>
+                                </ul>
+
+                                <ul class="box_receiver_info">
+                                    <li class="cell_discount_tit">
+                                        배송지 주소
+                                    </li>
+                                    <li class="cell_discount_detail2 order_address_form box_address">
+                                        <div class="recent-addr">
+                                            <span id="delivery-addr">{{delivery.d_addr}}</span>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <!--수령자 정보-->
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="section order_product_info">
+                        <h3 class="section_title font-mss">Product Info<span>상품 정보</span></h3>
+                        <!--cart products-->
+                        <table class="table_basic order_cart_table">
+                            <colgroup>
+                                <col>
+                                <col width="50px">
+                                <!-- <col width="100px">-->
+                                <col width="80px">
+                                <col width="80px">
+
+                                <col width="70px" class="charge ">
+                                <col width="69px" class="charge ">
+                                <col width="100px" class="charge ">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th scope="col">상품 정보</th>
+                                    <th scope="col">수량</th>
+                                    <!-- <th scope="col">상품 금액</th>-->
+                                    <th scope="col">포인트</th>
+                                    <th scope="col">상품 할인율</th>
+
+                                    <th scope="col">배송지 주소</th>
+                                    <th scope="col">배송비</th>
+                                    <th scope="col">주문금액</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- 반품여부 N : 반품불가 상품 -->
+                                <tr>
+                                    <td class="td_product">
+                                        
+                                        <div class="connect_img">
+                                                {% for img in imgs%}
+                                                {%if forloop.first%}
+                                                <img src="{{img.ii_img.url}}"
+                                                    alt="" />
+                                                {%endif%}
+                                                {%endfor%}
+                                        </div>
+                                        <div class="article_info connect_info">
+                                            <div class="box_product">
+                                                <strong>
+                                                    <span style="color:#09f;"></span>
+                                                    <span style="color:#f00;"></span>
+                                                    [커버낫]
+                                                </strong>
+                                                <span class="list_info">
+                                                   
+                                                    {{item.b_no.b_korname}}/{{item.it_name}}
+                                                    
+                                                </span>
+                                            </div>
+                                            
+                                            <div class="order_option_box">
+                                                <p>
+                                                    {%if item.bigcate_no.bigcate_no != 4 and item.bigcate_no.bigcate_no != 5 %}
+                                                    {{stock.col_no.col_name}} /  {{stock.s_no.s_name}}
+                                                    {%else%}
+                                                    {{stock.col_no.col_name}} /  {{stock.ss_no.ss_name}}
+                                                    {%endif%}
+                                                     / 
+                                                    {%if option != None %}
+                                                    {{option.opt_name}}
+                                                    {%else%}
+                                                    옵션없음
+                                                    {%endif%}
+
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <strong>{{quantity}} 개</strong>
+                                    </td>
+                                    <td>
+                                        {{item.it_point|cal:quantity}} point
+                                    </td>
+                                    <td>
+                                        {{item.it_discount}}%
+                                    </td>
+
+                                    <td rowspan="1">
+                                        <!--1315 <br>-->
+                                        {{delivery.d_addr}}
+                                        <!-- -->
+                                    </td>
+
+                                    <td rowspan="1">
+                                        무료
+                                        
+                                        
+                                        <!--//반송비 정보-->
+                                    </td>
+
+                                    <td class="price">
+
+                                        <del class="box_origin_price">{{item.it_price|cal:quantity}} 원</del>
+                                        <strong>{{price|cal:quantity}}</strong>원
+                                    </td>
+                                 
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+
+
+
+
+                    <div class="right_contents section_payment">
+                        <h3 class="title-box font-mss">Payment info
+                            <span class="korSub">결제 정보 </span>
+                        </h3>
+                        <div>
+                            <!--신용카드 -->
+                            <div class="cell_order_form">
+                                <div class="clear cell_order_form1 border_add_order" id="payment_info_area">
+                                    <!--결제 정보-->
+                                    <ul id="__payment-choice-view" class="list_payment_order">
+                                        <li class="cell_discount_tit new-payment-area">결제 수단</li>
+                                        <li class="cell_discount_detail new-payment-area">
+                                            <ul class="payment-choice">
+                                                <li>
+                                                    <select name="selectpayment" id="">
+                                                        <option value="{{payment.p_no}}">{{payment.p_name}} / {{payment.p_cardnum}}</option>
+                                                    </select>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--//결제 정보-->
+                                <!--//신용카드 -->
+
+                            </div>
+
+                            <!--cart button-->
+                            <div class="btn_wrap order_form__payment-button-wrap">
+                                <a id="btn_pay" href="javascript:void(0)" onclick="document.buyitemform.submit();"
+                                    class="order_form__payment-button">
+                                   결제하기
+                                </a>
+                            </div>
+                            <!--//cart button-->
+                        </div>
+                        <!--// 컨텐츠 영역 -->
+                </form>
+               
+                
+
+                <!--// 하단 콘텐츠 영역 -->
+            </div>
+            <!--// 오른쪽 콘텐츠 영역 -->
+        </div>
+        <!--// wrap -->
+
+    </div>
+
+
+
+
+{% endblock %}

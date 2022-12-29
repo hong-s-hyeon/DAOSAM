@@ -1,0 +1,71 @@
+{%extends 'layout/main_layout.html'%}
+{% block script %}
+<script>
+	function deleteAction() {
+		var check = confirm("삭제 하시겠습니까?");
+		
+		if(!check){
+			return;
+		}
+		
+		location.href = '/community/delete/?bo_no={{ content.bo_no }}';
+	}
+</script>
+{% endblock %}
+{% block content %}
+<div style="width: 90%; margin: 0px auto;">
+	<table class="table" style="width: inherit; margin: 0px auto;">
+		<tr>
+			<th>제목</th>
+			<td>{{ content.bo_title }}</td>
+			<th>조회수</th>
+			<td>{{ content.bo_hit }}</td>
+		</tr>
+		<tr>
+			<th>작성자</th>
+			<td>{{ content.u_no.u_name }}</td>
+			<th>작성일</th>
+			<td>{{ content.bo_date |date:'Y-m-d'}}</td>
+		</tr>
+		<tr>
+			<td colspan="4">
+                {% autoescape off %}
+                    {{ content.bo_content }}
+                {% endautoescape %}	
+			</td>
+		</tr>
+	</table>
+	<div class="button"  style="width: inherit; margin: 0px auto; display:  flex; justify-content: right;">
+		{% if request.session.login == content.u_no.u_no %}
+            <input type="button" value="수정" onclick="location.href='/community/update?bo_no={{content.bo_no}}'">
+            <input type="button" value="삭제" onclick="deleteAction()">
+        {% endif %}
+		{% if request.session.login != None %}
+			<input type="button" value="답글" onclick="location.href='/community/write/{{ content.bo_no }}'">
+		{% endif %}
+		<input type="button" value="목록" onclick="location.href='/community/'">
+	</div>  
+	{% if request.session.login != None %}
+		<div style="width: inherit; margin: 10px auto;">
+			<form action="/community/{{ content.bo_no }}/comment" method="post">
+				{% csrf_token %}
+				<textarea rows="5" cols="57" name = "content"></textarea>
+				<span style="float: right;"><button style="width: 60px; height: 75px;">댓글달기</button></span>
+			</form>
+		</div>
+	{% endif %}
+	{% for comment in comments%}
+		<div style="width: inherit; margin: 10px auto; border: 1px solid black;">
+			<p>
+				답글 번호 : {{comment.co_no}}<br>
+				답글 작성자 : {{comment.user}}<br>
+				답글 내용 : {{ comment.content }} <br>
+				<span style="float: right;">답글 작성일 : {{ comment.logtime|date:"y-m-d" }}</span>
+			</p>
+			{% if request.session.login == comment.user.u_no %}
+				<input type="button" value="삭제" onclick="document.location.href='/community/comment/{{comment.co_no}}'">
+			{% endif %}
+		</div>
+	{% endfor %}
+</div>
+{% endblock %}

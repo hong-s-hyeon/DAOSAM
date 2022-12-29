@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pwpage</title>
+</head>
+{%block script%}
+<script>
+    function pwpw(){
+        if (document.pwform.password.value==''){
+            alert('비밀번호를 입력해주세요')
+            document.pwform.password.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+{%endblock%}
+
+{% block content %}
+<div style="display: flex; justify-content: center;">
+    
+    
+    {% if msg == None%}
+    <form action="/members/checkPw/" method="post" name="pwform">
+        {% csrf_token %}
+        {% if kind == '0' %}
+        <h1>내 정보 수정</h1>
+        <input type="hidden" name="kind" value="0">
+        {% else %}
+        <h1>탈퇴하기</h1>
+        <input type="hidden" name="kind" value="1">
+        {% endif %}
+        <table>
+            <caption style="font-size: 1.5em; font-weight: bolder;">비밀번호확인<br><br></caption>
+            <tr>
+                <td>현재 계정의 비밀번호 입력</td>
+                <td><input type="password" name="u_pw"></td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="submit" value="확인" onclick="return pwpw();">
+                    <button type="button" onclick="history.back()">뒤로가기</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+    {% else %}
+    <h1>{{msg}}</h1>
+    {%endif%} 
+    
+</div>
+            
+{% endblock %}

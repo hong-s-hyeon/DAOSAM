@@ -1,0 +1,37 @@
+{%extends 'layout/main_layout.html'%}
+
+{% block script %}
+<script type="text/javascript">
+	function checkUpdate() {
+		if(document.write.m_title.value == ""){
+			alert("제목을 입력하십시오!");
+		}else if(document.write.m_content.value == ""){
+			alert("내용을 입력하십시오!")
+		}else{
+			document.write.submit();
+		}
+	}
+</script>
+{% endblock %}
+{% block content %}
+<div style="width: 90%; margin: 0px auto;">
+    <form action="/review/checkUpdate/" method="post" name = "write">
+        {% csrf_token %}
+        <input type="hidden" name = "m_no" value="{{ m_no.m_no }}">
+        <input type="hidden" name="buy_no" value="{{ buy_no.buy_no }}">
+        <input type="hidden" name="b_no" value="{{ buy_no.st_no.b_no.b_no }}">
+        구매 번호 : {{m_no.buy_no.buy_no}}<br>
+        상품명 : {{m_no.buy_no.st_no.it_no.it_name}}<br>
+        사이즈평 : <input type="text" name="m_size" value="{{ m_no.m_size }}"><br>
+        컬러평 : <input type="text" name="m_color" value="{{ m_no.m_color }}"><br>
+        착용감평 : <input type="text" name="m_puton" value="{{ m_no.m_puton }}"><br>
+        재구매의사 : <input type="text" name="m_rebuy" value="{{m_no.m_rebuy }}"><br>
+        <table class = "table" style="margin: 0px auto;">
+            {{ forms.as_table }}
+        </table>
+        <div class = "button" style="text-align: right; margin-top: 10px; width: inherit;">
+            <input type="button" value="수정" onclick="javascript:checkUpdate()">
+        </div>
+    </form>    
+</div>
+{% endblock %}
